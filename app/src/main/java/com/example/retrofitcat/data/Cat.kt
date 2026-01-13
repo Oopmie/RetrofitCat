@@ -8,5 +8,7 @@ data class Cat(
     @SerialName("tags")
     val tags: List<String>,
     @SerialName("createAt")
-    val createAt: String
+    val createAt: String,
+    @SerialName("mimetype")
+    val mimetype: String
 )

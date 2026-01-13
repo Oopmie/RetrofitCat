@@ -14,7 +14,7 @@ class PetsRepositoryImpl(
             try {
                 val response=catsAPI.fetchCats()
                 if(response.isSuccessful)
-                    NetworkResult.Success(response.body())
+                    NetworkResult.Success(response.body()!!)
                 else
                     NetworkResult.Error(response.errorBody()
                         .toString())
