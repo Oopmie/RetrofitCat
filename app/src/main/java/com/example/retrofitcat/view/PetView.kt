@@ -33,7 +33,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PetView(){
+fun PetView(onPetClicked:(Cat)-> Unit){
     Scaffold(
         topBar = {
             TopAppBar(title = {Text(text = "Pets")},
@@ -43,7 +43,8 @@ fun PetView(){
                 )
         },
         content = {paddingValues ->
-            PetList(modifier = Modifier.fillMaxSize().padding(paddingValues))
+            PetList(modifier = Modifier.fillMaxSize().padding(paddingValues),
+                onPetClicked = onPetClicked)
         }
     )
 }
