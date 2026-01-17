@@ -1,6 +1,7 @@
 package com.example.retrofitcat.view
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -31,56 +32,18 @@ import com.example.retrofitcat.data.Cat
 import com.example.retrofitcat.viewModel.PetsViewModel
 import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PetView(onPetClicked:(Cat)-> Unit){
-    Scaffold(
-        topBar = {
-            TopAppBar(title = {Text(text = "Pets")},
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary
-                )
-                )
-        },
-        content = {paddingValues ->
-            PetList(modifier = Modifier.fillMaxSize().padding(paddingValues),
-                onPetClicked = onPetClicked)
-        }
-    )
-}
-
-@Composable
-fun PetList(modifier: Modifier){
-    val petsViewModel: PetsViewModel=koinViewModel()
-    val petsUIState by petsViewModel.petsUIState.collectAsStateWithLifecycle()
-    Column(
-        modifier=modifier.padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    )
-    {
-        AnimatedVisibility(visible = petsUIState.isLoading) {
-            CircularProgressIndicator()
-        }
-        AnimatedVisibility(
-            visible = petsUIState.pets.isNotEmpty()
-        ) {
-            LazyColumn {
-                items(petsUIState.pets){
-                    pet->PetListItem(pet)
-                }
-            }
-        }
-        AnimatedVisibility(
-            visible = petsUIState.error!=null
-        ) {
-            Text(text = petsUIState.error?:"")
+fun PetList(onPetClicked: (Cat)-> Unit, pets: List<Cat>, modifier: Modifier){
+    LazyColumn(modifier = modifier) {
+        items(pets){pet->
+            PetListItem(cat=pet,onPetClicked=onPetClicked)
         }
     }
 }
 
+
 @Composable
-fun PetListItem(cat: Cat){
+fun PetListItem(cat: Cat,onPetClicked: (Cat) -> Unit){
     ElevatedCard(modifier = Modifier.fillMaxWidth().padding(6.dp)) {
         Column(modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp)) {
             AsyncImage(model="https://cataas.com/cat/${cat.id}",

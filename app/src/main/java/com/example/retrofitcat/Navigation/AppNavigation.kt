@@ -11,6 +11,9 @@ import com.example.retrofitcat.view.PetView
 fun AppNavigation(){
     val navController= rememberNavController()
     NavHost(navController=navController, startDestination = Screens.PetsScreen.route){
-        composable(Screens.PetsScreen.route){ PetView()}
+        composable(Screens.PetsScreen.route)
+        {
+            PetView()
+        }
     }
 }

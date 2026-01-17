@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.retrofitcat.Navigation.AppNavigation
 import com.example.retrofitcat.ui.theme.RetrofitCatTheme
-import com.example.retrofitcat.view.PetView
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
